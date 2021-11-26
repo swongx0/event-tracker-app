@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
 import ActivityForm from './ActivityForm';
+import ActivitiesContext from "../context/ActivitiesContext";
 
-const AddTimeSlot = ({ history, activities, setActivities }) => {
+const AddTimeSlot = ({ history }) => {
+    const {activities, setActivities} = useContext(ActivitiesContext);
+
     const handleOnSubmit = (activity) => {
         setActivities([activity, ...activities]);
         history.push('/');

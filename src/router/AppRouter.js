@@ -1,9 +1,12 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Redirect } from 'react-router';
 import Header from '../components/Header';
 import AddTimeSlot from "../components/AddTimeslot";
 import Timeslots from "../components/Timeslots";
 import useLocalStorage from "../hooks/useLocalStorage";
+import EditActivity from "../components/EditActivity";
+import ActivitiesContext from "../context/ActivitiesContext";
 
 const AppRouter = () => {
     const [activities, setActivities] = useLocalStorage('activities', []);
@@ -12,15 +15,14 @@ const AppRouter = () => {
             <div>
                 <Header />
                 <div className="main-content">
-                    <Switch>
-                        <Route component={Timeslots} path='/' exact={true} />
-                        <Route
-                            render={(props) => (
-                                <AddTimeSlot {...props} activities={activities} setActivities={setActivities} />
-                            )}
-                            path="/add"
-                        />
-                    </Switch>
+                    <ActivitiesContext.Provider value={{ activities, setActivities }}>
+                        <Switch>
+                            <Route component={Timeslots} path="/" exact={true} />
+                            <Route component={AddTimeSlot} path="/add" />
+                            <Route component={EditActivity} path="/edit/:id" />
+                            <Route component={() => <Redirect to="/" />} />
+                        </Switch>
+                    </ActivitiesContext.Provider>
                 </div>
             </div>
         </BrowserRouter>

@@ -1,7 +1,7 @@
 body {
-  background: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
-  font-family: Noto Sans, Helvetica, sans-serif;
-  color: #666;
+  background: linear-gradient(296.82deg, #ffcdb8 10.42%, #97ddff 100%);
+  font-family: Quicksand;
+  color: rgb(0, 0, 0);
   letter-spacing: 1px;
   padding: 10px;
   min-height: 100vh;
@@ -10,6 +10,16 @@ body {
 header {
   text-align: center;
   margin: 10px 0 10px 0;
+
+  .schedule-btn {
+    background: #ffcdb8;
+    border: none !important;
+    border-radius: 5px;
+    margin: 1rem 0;
+    padding: 10px;
+    font-weight: 700;
+    color: rgb(0, 0, 0) !important;
+  }
 
   .links {
     text-transform: uppercase;
@@ -45,15 +55,16 @@ header {
 }
 
 h1 {
-  text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85,
-    -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606,
-    0 -80px 70px #973716, 10px -90px 80px #451b0e;
   display: inline-block;
 }
 
 h1,
 h2 {
   color: #666;
+}
+
+a {
+  color: rgb(0, 0, 0) !important;
 }
 
 .main-content {
@@ -71,23 +82,26 @@ h2 {
   margin-bottom: 50px;
 }
 
-.book-list {
+.activity-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
 
-.book {
+.activity {
   margin: 10px;
   width: 288px;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.51);
+  backdrop-filter: blur(27px);
+  border-radius: 10px;
 
-  .book-title {
+  .activity-title {
     font-weight: bold;
   }
 
-  .book-details {
+  .activity-details {
     margin-bottom: 1rem;
 
     & > div {

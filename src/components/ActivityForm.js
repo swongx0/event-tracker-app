@@ -1,19 +1,25 @@
 import React, { uesState, useState } from "react";
 import { Form, Button } from 'react-bootstrap';
 import {v4 as uuidv4 } from 'uuid'
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const ActivityForm = (props) => {
-    const [activity, setActivity] = useState({
-        activityName: props.activity ? props.activity.activityName : '',
-        date: props.activity ? props.activity.date : '',
-        startTime: props.activity ? props.activity.startTime : '',
-        endTime: props.activity ? props.activity.endTime : '',
-        numMaxGuests: props.activity ? props.activity.numMaxGuests : ''
-
+    const [activity, setActivity] = useState(() => {
+        return {
+            activityName: props.activity ? props.activity.activityName : '',
+            date: props.activity ? props.activity.date : '',
+            startTime: props.activity ? props.activity.startTime : '',
+            endTime: props.activity ? props.activity.endTime : '',
+            numMaxGuests: props.activity ? props.activity.numMaxGuests : ''
+        };
     });
 
     const [errorMsg, setErrorMsg] = useState('');
-    const {activityName, date, startTime, endTime, numMaxGuests} = activity;
+    const [date, setDate] = useState(new Date());
+    const [startTime, setStartTime] = useState(new Date());
+    const {activityName, endTime, numMaxGuests} = activity;
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
@@ -29,7 +35,7 @@ const ActivityForm = (props) => {
             const activity = {
                 id: uuidv4(),
                 activityName,
-                date: new Date(),
+                date,
                 startTime,
                 endTime,
                 numMaxGuests
@@ -86,28 +92,30 @@ const ActivityForm = (props) => {
                 </Form.Group>
                 <Form.Group controlId="date">
                     <Form.Label>Date</Form.Label>
-                    <Form.Control
+                    <ReactDatePicker
                         className="input-control"
-                        type="text"
-                        name="date"
+                        selected={date}
+                        onChange={date => setDate(date)}
                         value={date}
-                        placeholder="Date"
-                        onChange={handleInputChange}
+                        dateFormat="yyyy-MM-dd"
                     />
                 </Form.Group>
                 <Form.Group controlId="startTime">
                     <Form.Label>Start Time</Form.Label>
-                    <Form.Control
+                    <ReactDatePicker
                         className="input-control"
-                        type="text"
-                        name="startTime"
-                        value={startTime}
-                        placeholder="Start Time"
-                        onChange={handleInputChange}
+                        selected={startTime}
+                        onChange={(startTime) => setStartTime(startTime)}
+                        showTimeSelect
+                        showTimeSelectOnly
+                        timeIntervals={15}
+                        timeCaption="Time"
+                        dateFormat="h:mm aa"
                     />
+                   
                 </Form.Group>
                 <Form.Group controlId="endTime">
-                    <Form.Label>Activity Name</Form.Label>
+                    <Form.Label>End Time</Form.Label>
                     <Form.Control
                         className="input-control"
                         type="text"
