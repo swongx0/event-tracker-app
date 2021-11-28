@@ -11,11 +11,11 @@ const Header = ({handleView}) => {
             <h1>Peek Timeslot App</h1>
             <hr/>
             <div className="links">
-                <Button className="schedule-btn">
-                    <NavLink to="/add" style={{ textDecoration: 'none' }}>
+                <NavLink to="/add" style={{ textDecoration: 'none' }}>
+                    <Button className="schedule-btn">
                         Schedule a new timeslot
-                    </NavLink>
-                </Button>      
+                    </Button>    
+                </NavLink>  
                 <br />
                 <NavLink to="/" className="link" activeClassName="active" exact>
                     Upcoming Events
