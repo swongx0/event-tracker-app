@@ -1,8 +1,10 @@
-import React, { uesState, useState } from "react";
+import React, { useState } from "react";
 import { Form, Button } from 'react-bootstrap';
 import {v4 as uuidv4 } from 'uuid'
 import ReactDatePicker from "react-datepicker";
+import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
+import Header from "./Header";
 
 
 const ActivityForm = (props) => {
@@ -19,7 +21,8 @@ const ActivityForm = (props) => {
     const [errorMsg, setErrorMsg] = useState('');
     const [date, setDate] = useState(new Date());
     const [startTime, setStartTime] = useState(new Date());
-    const {activityName, endTime, numMaxGuests} = activity;
+    const [endTime, setEndTime] = useState(new Date());
+    const {activityName, numMaxGuests} = activity;
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
@@ -49,24 +52,7 @@ const ActivityForm = (props) => {
 
     const handleInputChange = (event) => {
     const { name, value } = event.target;
-    switch (name) {
-      case 'startTime':
-        if (value === '' || parseInt(value) === +value) {
-          setActivity((prevState) => ({
-            ...prevState,
-            [name]: value
-          }));
-        }
-        break;
-      case 'endTime':
-        if (value === '' || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
-          setActivity((prevState) => ({
-            ...prevState,
-            [name]: value
-          }));
-        }
-        break;
-      default:
+    if (name) {
         setActivity((prevState) => ({
           ...prevState,
           [name]: value
@@ -77,6 +63,7 @@ const ActivityForm = (props) => {
 
     return (
         <div className="main-form">
+            <Header />
             {errorMsg && <p className="errorMsg">{errorMsg}</p>}
             <Form onSubmit={handleOnSubmit}>
                 <Form.Group controlId="activityName">
@@ -96,33 +83,37 @@ const ActivityForm = (props) => {
                         className="input-control"
                         selected={date}
                         onChange={date => setDate(date)}
+                        minDate={moment().toDate()}
                         value={date}
                         dateFormat="yyyy-MM-dd"
                     />
                 </Form.Group>
-                <Form.Group controlId="startTime">
+                <Form.Group controlId="startTime" className="timeInputs">
                     <Form.Label>Start Time</Form.Label>
                     <ReactDatePicker
                         className="input-control"
                         selected={startTime}
-                        onChange={(startTime) => setStartTime(startTime)}
+                        onChange={startTime => setStartTime(startTime)}
+                        value={startTime}
                         showTimeSelect
                         showTimeSelectOnly
                         timeIntervals={15}
                         timeCaption="Time"
                         dateFormat="h:mm aa"
                     />
-                   
                 </Form.Group>
-                <Form.Group controlId="endTime">
+                <Form.Group controlId="endTime" className="timeInputs">
                     <Form.Label>End Time</Form.Label>
-                    <Form.Control
+                    <ReactDatePicker
                         className="input-control"
-                        type="text"
-                        name="endTime"
+                        selected={endTime}
+                        onChange={endTime => setEndTime(endTime)}
                         value={endTime}
-                        placeholder="End Time"
-                        onChange={handleInputChange}
+                        showTimeSelect
+                        showTimeSelectOnly
+                        timeIntervals={15}
+                        timeCaption="Time"
+                        dateFormat="h:mm aa"
                     />
                 </Form.Group>
                 <Form.Group controlId="numMaxGuests">
@@ -136,9 +127,11 @@ const ActivityForm = (props) => {
                         onChange={handleInputChange}
                     />
                 </Form.Group>
-                <Button variant="primary" type="submit" className="submit-btn">
-                Save
-                </Button>
+                <div className="align">
+                    <Button type="submit" className="save-btn">
+                     Save
+                    </Button>
+                </div>
             </Form>
         </div>
     );

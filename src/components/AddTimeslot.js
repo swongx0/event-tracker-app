@@ -12,7 +12,8 @@ const AddTimeSlot = ({ history }) => {
 
     return (
         <React.Fragment>
-            <ActivityForm handleOnSubmit={handleOnSubmit} />
+            <ActivityForm 
+                handleOnSubmit={handleOnSubmit} />
         </React.Fragment>
     );
 };
