@@ -8,7 +8,7 @@ const Header = ({handleView}) => {
 
     return (
         <header>
-            <h1>Peek Timeslot App</h1>
+            <h1>Event Tracker</h1>
             <hr/>
             <div className="links">
                 <NavLink to="/add" style={{ textDecoration: 'none' }}>
